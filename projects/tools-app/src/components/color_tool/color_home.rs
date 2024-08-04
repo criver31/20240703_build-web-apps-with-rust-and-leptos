@@ -1,5 +1,7 @@
 use leptos::*;
 
+use crate::repositories::color_repository::{all_colors, AppendColor, RemoveColor};
+
 #[component]
 pub fn ColoHome() -> impl IntoView {
     view! {

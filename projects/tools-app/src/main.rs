@@ -17,14 +17,14 @@ async fn main() -> std::io::Result<()> {
     println!("listening on http://{}", &addr);
 
     let db_pool = SqlitePoolOptions::new()
-    .connect("sqlite:/workspaces/20240703_build-web-apps-with-rust-and-leptos/projects/tools-app/toolsapp.sqlite")
+    .connect("sqlite:/projects/tools-app/toolsapp.sqlite")
     .await
     .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
 
-migrate!("./migrations")
-    .run(&db_pool)
-    .await
-    .unwrap_or_else(|_| panic!("could not run sqlx migration {}", whoami::username().as_str()));
+    migrate!("./migrations")
+        .run(&db_pool)
+        .await
+        .unwrap_or_else(|_| panic!("could not run sqlx migration {}", whoami::username().as_str()));
 
 
     HttpServer::new(move || {
